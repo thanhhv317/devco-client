@@ -5,11 +5,12 @@ import Header from "../../Header";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 
+const limit = 3;
+
 class CategoryPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1,
       isLoaded: false,
       error: null,
       items: [],
@@ -23,8 +24,7 @@ class CategoryPost extends Component {
     try {
       const href = window.location.href;
       const id = href.substring(href.lastIndexOf(".") + 1, href.length);
-
-      const url = domain + `posts/client/list_by_category?cateId=${id}`;
+      const url = domain + `api/posts?limit=${limit}&tag_id=${id}`;
 
       const fetchData = {
         method: "GET",
@@ -34,20 +34,24 @@ class CategoryPost extends Component {
       };
       const response = await fetch(url, fetchData);
       const result = await response.json();
-      let tmp = result.data.posts.length > 20 ? true : false;
+      const paging = result.paging;
+      const { next_cursor: nextCursor } = paging;
+      const isLoadmore =
+        result.data.length < limit || nextCursor === "" ? false : true;
+
       this.setState({
         isLoaded: true,
-        items: result.data.posts,
+        items: result.data,
         id,
-        isLoadmore: tmp,
+        isLoadmore,
+        cursor: nextCursor,
       });
 
-      const url2 = domain + `categories/view/${id}`;
+      const url2 = domain + `api/tags/${id}`;
       const response2 = await fetch(url2, fetchData);
       const result2 = await response2.json();
       this.setState({
-        title: result2.data.category.name,
-        content: result2.data.category.description,
+        title: result2.data.name,
       });
     } catch (error) {
       this.setState({
@@ -57,9 +61,8 @@ class CategoryPost extends Component {
     }
   };
   LoadMore = () => {
-    const { page, id } = this.state;
-    const url =
-      domain + `posts/client/list_by_category?cateId=${id}&page=${page + 1}`;
+    const { cursor, id } = this.state;
+    const url = domain + `api/posts?tag_id=${id}&cursor=${cursor}`;
     const fetchData = {
       method: "GET",
       headers: new Headers({
@@ -70,23 +73,22 @@ class CategoryPost extends Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
-          if (result.status) {
-            let tmp = this.state.items;
-            this.setState({
-              page: this.state.page + 1,
-              isLoaded: true,
-              items: [...tmp, ...result.data.posts],
-            });
-            if (_.isEmpty(result.data.posts)) {
-              this.setState({
-                isLoadmore: false,
-              });
-            }
-          } else {
+          const nextCursor = result?.paging?.next_cursor;
+          if (!result.data) {
             this.setState({
               isLoaded: true,
               error: result.data,
+            });
+          } else {
+            let tmp = this.state.items;
+            this.setState({
+              isLoaded: true,
+              items: [...tmp, ...result.data],
+            });
+            const isLoadmore =
+              result.data.length < limit || nextCursor === "" ? false : true;
+            this.setState({
+              isLoadmore,
             });
           }
         },
@@ -100,19 +102,18 @@ class CategoryPost extends Component {
   };
 
   getRndInteger = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
-  }
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
 
   componentDidMount() {
     this.loadListPostByCategory();
   }
   render() {
     const { items, isLoadmore, title, content } = this.state;
-    console.log()
     return (
       <div>
         <Header
-          background={`../assets/img/anh-${this.getRndInteger(2,18)}.jpg`}
+          background={`../assets/img/anh-${this.getRndInteger(2, 18)}.jpg`}
           title={title}
           content={content}
         />
@@ -121,7 +122,7 @@ class CategoryPost extends Component {
             <div className="row">
               <div className="col-lg-12 col-md-12 mx-auto">
                 <div className="row">
-                  {items.length===0 ? 'Hiện chưa có bài viết nào!' : ''}
+                  {items.length === 0 ? "Hiện chưa có bài viết nào!" : ""}
                   {items.map((value, index) => {
                     return <PostItem key={index} post={value} />;
                   })}

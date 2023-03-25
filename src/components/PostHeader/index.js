@@ -20,9 +20,7 @@ class PostHeader extends Component {
                 <div className="post-heading">
                   <h1>{title}</h1>
                   <span className="meta">
-                    Đăng bởi
-                    <b style={{ cursor: "pointer" }}> {author} </b>
-                    lúc {moment(createDate).format("hh:mm - DD/MM/YYYY")}
+                    {moment(createDate).format("hh:mm - DD/MM/YYYY")}
                   </span>
                 </div>
               </div>

@@ -14,7 +14,7 @@ class Nav extends Component {
         >
           <div className="container">
             <Link className="navbar-brand" to="/">
-              BlogHT
+              ThanhHV
             </Link>
             <button
               className="navbar-toggler navbar-toggler-right"

@@ -21,7 +21,7 @@ class HelmetMetaData extends Component {
     let title =
       this.props.title !== undefined
         ? this.props.title
-        : "BlogHT - Chia sẻ là sức mạnh";
+        : "ThanhHV - Khám phá vũ trụ mã nguồn mở";
     let image =
       this.props.image !== undefined
         ? domain + this.props.image
@@ -29,9 +29,9 @@ class HelmetMetaData extends Component {
     let description =
       this.props.description !== undefined
         ? this.props.description
-        : "Nếu bạn là một lập trình viên thì tôi dám chắc chắn bạn cũng đã biết điều này: công nghệ thay đổi và những gì bạn biết ngày hôm nay có thể không còn được sử dụng 1 tháng sau đó. Vì vậy việc cập nhật các công nghệ mới là điều hết sức cần thiết cho các lập trình viên.";
+        : "Khám phá vũ trụ mã nguồn mở.";
     let hashtag =
-      this.props.hashtag !== undefined ? this.props.hashtag : "#bloght";
+      this.props.hashtag !== undefined ? this.props.hashtag : "#thanhhv";
     this.setState({
       currentUrl,
       quote,
@@ -43,14 +43,8 @@ class HelmetMetaData extends Component {
   }
 
   render() {
-    const {
-      title,
-      quote,
-      currentUrl,
-      image,
-      description,
-      hashtag,
-    } = this.state;
+    const { title, quote, currentUrl, image, description, hashtag } =
+      this.state;
     return (
       <Helmet>
         <title>{title}</title>
@@ -79,7 +73,7 @@ class HelmetMetaData extends Component {
         <meta property="og:image" content={image} />
         <meta content="image/*" property="og:image:type" />
         <meta property="og:url" content={currentUrl} />
-        <meta property="og:site_name" content="HTBlog" />
+        <meta property="og:site_name" content="Thanhhv" />
         <meta property="og:description" content={description} />{" "}
       </Helmet>
     );

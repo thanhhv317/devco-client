@@ -18,7 +18,7 @@ class SocialMediaButtons extends Component {
     return (
       <FacebookShareButton
         url={href}
-        quote={"BlogHT - Chia sẻ kiến thức"}
+        quote={"ThanhHV - Chia sẻ kiến thức"}
         hashtag="#HTBlog"
       >
         <FacebookIcon size={36} />

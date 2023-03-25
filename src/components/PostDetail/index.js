@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PostHeader from "./../PostHeader";
 import Post from "./../Post";
 import { domain } from "../../utils/config";
-import Comment from "../Comment";
-import ListComment from "../Comment/ListComment";
 import SocialMediaButtons from "../SocialMediaButtons/FacebookShare";
 import PageNotFound from "../404";
 import HelmetMetaData from "../SocialMediaButtons/HelmetMetaData";
@@ -26,7 +24,7 @@ class PostDetail extends Component {
       postId: id,
     });
 
-    const url = domain + `posts/view/${id}`;
+    const url = domain + `api/posts/${id}`;
     const fetchData = {
       method: "GET",
       headers: new Headers({
@@ -40,7 +38,7 @@ class PostDetail extends Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.data.post,
+            items: result.data,
           });
         },
         (error) => {
@@ -92,7 +90,7 @@ class PostDetail extends Component {
           <div>
             <PostHeader
               title={items.title}
-              author={items.authorId.username}
+              author={""}
               createdDate={items.createdAt}
               image={items.thumbnail}
             />
@@ -100,7 +98,7 @@ class PostDetail extends Component {
               content={items.content}
               title={items.title}
               gallery={items.thumbnail}
-              author={items.authorId.fullname}
+              author={""}
             />
             <div className="share-social-btn">
               <div>
@@ -113,8 +111,6 @@ class PostDetail extends Component {
                 </div>
               </div>
             </div>
-            <Comment postId={postId} />
-            <ListComment postId={postId} />
           </div>
         </div>
       );

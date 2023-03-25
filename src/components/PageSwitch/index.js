@@ -16,8 +16,8 @@ class PageSwitch extends Component {
           <Route exact path="/">
             <Header
               background="assets/img/alo2.jpg"
-              title="BlogHT "
-              content=" Chia sẻ là sức mạnh"
+              title="ThanhHV "
+              content="Khám phá vũ trụ mã nguồn mở"
             />
             <Home />
           </Route>
@@ -25,7 +25,7 @@ class PageSwitch extends Component {
             <Header
               background="assets/img/alo4.jpg"
               title="About me"
-              content=""
+              content="Lập trình viên - người biến cà phê và pizza thành mã nguồn sống."
             />
             <About />
           </Route>

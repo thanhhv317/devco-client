@@ -8,28 +8,22 @@ class About extends Component {
           <div className="row">
             <div className="col-lg-8 col-md-10 mx-auto">
               <p>
-                Nếu bạn là một lập trình viên thì tôi dám chắc chắn bạn cũng đã
-                biết điều này: công nghệ thay đổi và những gì bạn biết ngày hôm
-                nay có thể không còn được sử dụng 1 tháng sau đó. Vì vậy việc
-                cập nhật các công nghệ mới là điều hết sức cần thiết cho các lập
-                trình viên. Tuy nhiên, nếu chỉ đọc thôi thì có khả năng bạn mới
-                chỉ hiểu được một phần của những gì bạn mới đọc được và nếu bạn
-                không có trí nhớ siêu phàm thì khả năng bạn quên những thứ mới
-                học được sau 1 vài tháng là điều khó tránh khỏi.
+                Chào mừng đến với trang blog của ThanhHV - nơi chia sẻ kiến thức
+                và kinh nghiệm về lập trình! Trang web này được tạo ra với mục
+                đích giúp các lập trình viên, sinh viên và những người đam mê
+                công nghệ có thêm những kiến thức cần thiết để phát triển kỹ
+                năng lập trình của mình. Với những bài viết chất lượng và phong
+                phú về các chủ đề liên quan đến lập trình, chúng tôi mong muốn
+                mang lại cho độc giả những thông tin hữu ích và thú vị nhất!
               </p>
+
               <p>
-                Việc viết và dạy lại người khác những gì bạn biết là một cách
-                tuyệt vời giúp bạn nhớ tốt hơn những gì mới tìm hiểu được. Khi
-                viết lại những hiểu biết của mình bạn cũng sẽ tự mình đặt ra
-                nhiều câu hỏi hơn cho bản thân. Và trong nhiều trường hợp bạn
-                nhận ra được nhiều kiến thức "có vẻ" như bạn đã hoàn toàn hiểu
-                trước đó lại là những thứ bạn cần phải đào sâu hơn.
-              </p>
-              <p>
-                Đó chính là lý do xuất hiện của blogHT, tôi muốn chia sẽ lại
-                những kiến thức mà mình biết được, những bài viết hay được sưu
-                tầm trên mạng đến với mọi người bởi vì " KIẾN THỨC LÀ ĐỂ CHIA
-                SẼ".
+                <a
+                  href="https://me.momo.vn/qr-page/P2P/thanhhv317998/JxboZ6PX1MrBagw"
+                  target="_blank"
+                >
+                  Buy me a coffee
+                </a>
               </p>
             </div>
           </div>

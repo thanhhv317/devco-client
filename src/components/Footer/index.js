@@ -10,7 +10,7 @@ class Footer extends Component {
               <div className="col-lg-8 col-md-10 mx-auto">
                 <ul className="list-inline text-center">
                   <li className="list-inline-item">
-                    <a href="https://www.youtube.com/channel/UCN4AhzL9_RFZjmC-mvLvqhQ">
+                    <a href="https://www.youtube.com/channel/UCD1HwJRs5Er-UcOdYMveMhw">
                       <span className="fa-stack fa-lg">
                         <i className="fas fa-circle fa-stack-2x" />
                         <i className="fab fa-youtube fa-stack-1x fa-inverse" />

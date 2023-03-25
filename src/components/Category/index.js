@@ -15,7 +15,7 @@ class Category extends Component {
 
   loadCategory = async () => {
     try {
-      const url = domain + "categories/list";
+      const url = domain + "api/tags";
       const fetchData = {
         method: "GET",
         headers: new Headers({
@@ -26,7 +26,7 @@ class Category extends Component {
       const result = await response.json();
       this.setState({
         isLoaded: true,
-        items: result.data.category,
+        items: result.data,
       });
 
       console.log(result);

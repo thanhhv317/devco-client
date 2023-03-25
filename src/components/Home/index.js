@@ -4,21 +4,23 @@ import { domain } from "../../utils/config";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 
+const limit = 20;
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 1,
       error: null,
       isLoaded: false,
       items: [],
       isLoadmore: true,
+      cursor: "",
     };
   }
 
   LoadMore = () => {
-    const { page } = this.state;
-    const url = domain + `posts/client/list?page=${page + 1}`;
+    const { cursor } = this.state;
+    const url = domain + `api/posts?limit=${limit}&cursor=${cursor}`;
     const fetchData = {
       method: "GET",
       headers: new Headers({
@@ -29,22 +31,24 @@ class Home extends Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          if (result.status) {
-            let tmp = this.state.items;
-            this.setState({
-              page: this.state.page + 1,
-              isLoaded: true,
-              items: [...tmp, ...result.data.posts],
-            });
-            if (_.isEmpty(result.data.posts)) {
-              this.setState({
-                isLoadmore: false,
-              });
-            }
-          } else {
+          if (!result.data) {
             this.setState({
               isLoaded: true,
               error: result.data,
+            });
+          } else {
+            let tmp = this.state.items;
+            const nextCursor = result.paging.next_cursor;
+            this.setState({
+              cursor: nextCursor,
+              isLoaded: true,
+              items: [...tmp, ...result.data],
+            });
+            const isLoadmore =
+              result.data.length < limit || nextCursor === "" ? false : true;
+
+            this.setState({
+              isLoadmore,
             });
           }
         },
@@ -58,7 +62,7 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    const url = domain + "posts/client/list";
+    const url = domain + `api/posts?limit=${limit}`;
     const fetchData = {
       method: "GET",
       headers: new Headers({
@@ -69,16 +73,22 @@ class Home extends Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          if (result.status) {
-            let tmp = result.data.posts.length > 20 ? true: false;
-            this.setState({
-              isLoaded: true,
-              items: result.data.posts,
-              isLoadmore: tmp
-            });
-          } else {
+          console.log(result);
+          if (!result.data) {
             this.setState({
               error: result.data,
+            });
+          } else {
+            const paging = result.paging;
+            const { next_cursor: nextCursor } = paging;
+            const isLoadmore =
+              result.data.length < limit || nextCursor === "" ? false : true;
+
+            this.setState({
+              isLoaded: true,
+              items: result.data,
+              isLoadmore,
+              cursor: nextCursor,
             });
           }
         },
@@ -121,13 +131,14 @@ class Home extends Component {
             <div className="row">
               <div className="col-lg-12 col-md-12 mx-auto">
                 {items.map((item) => {
-                  return <PostItem key={item._id} post={item} />;
+                  return <PostItem key={item.id} post={item} />;
                 })}
                 {/* Pager */}
 
                 {isLoadmore ? (
                   <div className="clearfix">
                     <Link
+                      to={"#"}
                       className="btn btn-primary float-right"
                       style={{ cursor: "pointer" }}
                       onClick={this.LoadMore}

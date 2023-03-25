@@ -24,8 +24,8 @@ class CategoryItem extends Component {
         <div className="column">
           <h4 className="head">
             <Link
-              to={`/category/${convertText2Slug(item.name)}.${item._id}`}
-              target="_blank"
+              to={`/category/${convertText2Slug(item.name)}.${item.id}`}
+              // target="_blank"
             >
               {item.name}
             </Link>
